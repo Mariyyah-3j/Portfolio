@@ -9,6 +9,84 @@
 
     <style>
         body {
+            background-color: #FFF;
+            color: #3D2A71;
+        }
+        
+        /* Button container styles */
+        .button-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+
+        @media screen and (max-width: 768px) {
+            .switch {
+                width: 40px;
+                height: 20px;
+            }
+            
+            button {
+                padding: 10px 20px !important;
+                font-size: 14px !important;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .switch {
+                width: 35px;
+                height: 18px;
+            }
+            
+            button {
+                padding: 8px 16px !important;
+                font-size: 12px !important;
+            }
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(to right, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .slider.round {
+            border-radius: 34px;
+        }
+        
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -167,7 +245,7 @@
         }
 
         .logo img {
-            height: 40px;
+            height: 55px;
         }
 
         .menu-toggle {
@@ -209,33 +287,46 @@
         @media (max-width: 768px) {
             .nav-list {
                 display: none;
-                /* Hide the navigation list */
                 flex-direction: column;
-                /* Stack items vertically */
-                position: absolute;
-                /* Position it absolutely */
-                top: 60px;
-                /* Adjust based on your header height */
-                left: 0;
-                right: 0;
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
                 background-color: #F0E5FF;
-                /* Background color for visibility */
-                border-radius: 10px;
-                /* Rounded corners */
-                padding: 10px 0;
-                /* Padding for spacing */
+                border-radius: 15px;
+                padding: 20px;
                 z-index: 1000;
-                /* Ensure it appears above other content */
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
             }
 
             .nav-list.active {
                 display: flex;
-                /* Show the navigation list when active */
+                animation: slideDown 0.3s ease;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
             }
 
             .nav-list li {
-                margin: 10px 0;
+                margin: 15px 0;
                 text-align: center;
+            }
+
+            .nav-list li a {
+                font-size: 18px;
+                padding: 12px 20px;
+                display: block;
+                width: 100%;
             }
 
             .menu-toggle {
@@ -243,6 +334,32 @@
                 flex-direction: column;
                 cursor: pointer;
                 margin-left: auto;
+                z-index: 1001;
+            }
+
+            header {
+                padding: 15px;
+            }
+
+            .logo img {
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-list {
+                top: 70px;
+                width: 95%;
+                padding: 15px;
+            }
+
+            .nav-list li a {
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+
+            .logo img {
+                height: 30px;
             }
         }
 
@@ -1359,7 +1476,8 @@
             <li><a href="#Skills"><strong>Skills</strong></a></li>
         </ul>
 
-        <button onclick="location.href='#card-social';">
+        <div class="button-container">
+            <button onclick="location.href='#card-social';">
             Hire Me!
             <div class="star-1">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
@@ -1440,6 +1558,7 @@
                 </svg>
             </div>
         </button>
+        </div>
 
         <!-- زر القائمة الخاص بالجوال -->
         <div class="menu-toggle" id="mobile-menu">
