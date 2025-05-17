@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="image/logo2.png" type="image/x-icon">
+    <title> Mariyyah Aziz</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+            margin-top: 100px;
+            /* يعطي مساحة مساوية لارتفاع شريط التنقل */
+            font-family: "portada-arabic-text-variable", sans-serif;
+            font-variation-settings: 'wight' 400;
+        }
+
+        .cont {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            margin-left: 80px;
+            margin-left: 10% auto;
+            margin-right: 80px;
+            margin-right: 10% auto;
+            /* استخدام النسبة المئوية بدلاً من px */
+            padding: 20px;
+            /* إضافة padding لتحسين المظهر */
+        }
+
+        .cont h2 {
+            color: #3D2A71;
+            font-size: 40px;
+            margin-top: 100px;
+        }
+
+        .cont p {
+            color: #3D2A71;
+            font-size: 19px;
+            line-height: 1.5;
+            overflow: visible;
+            height: auto;
+            transition: all 0.3s ease;
+        }
+
+        .image-right {
+            width: 45%;
+            /* تحديد عرض الصورة */
+            height: auto;
+            /* الحفاظ على نسبة الأبعاد */
+            margin-left: auto;
+            /* تحريك الصورة إلى الجهة اليمنى */
+        }
+
+        @media (max-width: 768px) {
+            .cont {
+                flex-direction: column;
+                /* جعل العناصر تتكدس عموديًا في الشاشات الصغيرة */
+                align-items: center;
+                /* محاذاة العناصر في المنتصف */
+            }
+
+            .image-right {
+                width: 100%;
+                /* عرض الصورة أكبر على الأجهزة الصغيرة */
+                margin-left: 0;
+                /* إزالة الهامش الأيسر */
+                margin-top: 20px;
+                /* إضافة هامش بين النص والصورة */
+            }
+        }
+
+        header {
+            background-color: rgb(244, 240, 255);
+            color: white;
+            max-width: 1450px;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin: 0 auto;
+            position: fixed;
+            /* تثبيت شريط التنقل */
+            top: 0;
+            /* تثبيت في الأعلى */
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            /* جعل الشريط فوق العناصر الأخرى */
+            margin-top: 8px;
+            box-shadow: 0 4px 10px #9C8CB9;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                width: 85%;
+                padding: 10px;
+            }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 18px;
+            position: relative;
+            /* لتسهيل ضبط وضع الزر */
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #3D2A71;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 3px;
+            /* Thickness of the line */
+            background: linear-gradient(90deg, #3D2A71, #9c8cb9);
+            /* Gradient color */
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            /* Positioning the line below the text */
+            transform: scaleX(0);
+            /* Initially scale the line to 0 */
+            transition: transform 0.3s ease;
+            /* Smooth transition */
+        }
+
+        nav ul li a:hover::after {
+            transform: scaleX(1);
+            /* Scale the line to full width on hover */
+        }
+
+        .logo {
+            padding: 8px 16px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            position: relative;
+        }
+
+        .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #3D2A71;
+            margin: 3px 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
+        }
+
+        /* Transform bars to create an "X" */
+        .menu-toggle.open .bar:nth-of-type(1) {
+            transform: rotate(45deg);
+            top: 9px;
+            /* Adjust position */
+        }
+
+        .menu-toggle.open .bar:nth-of-type(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open .bar:nth-of-type(3) {
+            transform: rotate(-45deg);
+            top: -9px;
+            /* Adjust position */
+        }
+
+        /* Media query for mobile */
+        @media (max-width: 768px) {
+            .nav-list {
+                display: none;
+                /* Hide the navigation list */
+                flex-direction: column;
+                /* Stack items vertically */
+                position: absolute;
+                /* Position it absolutely */
+                top: 60px;
+                /* Adjust based on your header height */
+                left: 0;
+                right: 0;
+                background-color: #F0E5FF;
+                /* Background color for visibility */
+                border-radius: 10px;
+                /* Rounded corners */
+                padding: 10px 0;
+                /* Padding for spacing */
+                z-index: 1000;
+                /* Ensure it appears above other content */
+            }
+
+            .nav-list.active {
+                display: flex;
+                /* Show the navigation list when active */
+            }
+
+            .nav-list li {
+                margin: 10px 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 425px) {
+            .nav-list {
+                display: none;
+                position: absolute;
+                top: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 94%;
+                background-color: #F0E5FF;
+                border-radius: 30px;
+                padding: 20px 0;
+                z-index: 1000;
+                box-sizing: border-box;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+
+            .nav-list.active {
+                display: flex;
+                flex-direction: column;
+                opacity: 1;
+                transform: translateX(-50%);
+            }
+
+            .nav-list li {
+                margin: 10px 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .nav-list {
+                display: none;
+                position: absolute;
+                top: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 94%;
+                background-color: #F0E5FF;
+                border-radius: 30px;
+                padding: 20px 0;
+                z-index: 1000;
+                box-sizing: border-box;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+
+            .nav-list.active {
+                display: flex;
+                flex-direction: column;
+                opacity: 1;
+                transform: translateX(-50%);
+            }
+
+            .nav-list li {
+                margin: 10px 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                margin-left: auto;
+            }
+        }
+
+        /* المسافة بين الزر والقائمة */
+        @media (max-width: 768px) {
+            nav {
+                gap: 25px;
+                /* إضافة مسافة بين الزر والقائمة */
+                flex-direction: row;
+                /* جعل الزر والقائمة بجانب بعضهما */
+            }
+
+            .nav-list {
+                gap: 15px;
+                /* مسافة بين عناصر القائمة */
+            }
+
+            .menu-toggle {
+                display: flex;
+                /* إظهار زر القائمة في الجوال */
+                margin-left: auto;
+                /* دفعه إلى أقصى اليمين */
+            }
+        }
+
+        /* المسافة بين الزر والقائمة */
+        @media (max-width: 425px) {
+            nav {
+                gap: 20px;
+                /* إضافة مسافة بين الزر والقائمة */
+                flex-direction: row;
+                /* جعل الزر والقائمة بجانب بعضهما */
+            }
+
+            .nav-list {
+                gap: 15px;
+                /* مسافة بين عناصر القائمة */
+            }
+
+            .menu-toggle {
+                display: flex;
+                /* إظهار زر القائمة في الجوال */
+                margin-left: auto;
+                /* دفعه إلى أقصى اليمين */
+            }
+        }
+
+        /* المسافة بين الزر والقائمة */
+        @media (max-width: 375px) {
+            nav {
+                gap: 20px;
+                /* إضافة مسافة بين الزر والقائمة */
+                flex-direction: row;
+                /* جعل الزر والقائمة بجانب بعضهما */
+            }
+
+            .nav-list {
+                gap: 15px;
+                /* مسافة بين عناصر القائمة */
+            }
+
+            .menu-toggle {
+                display: flex;
+                /* إظهار زر القائمة في الجوال */
+                margin-left: auto;
+                /* دفعه إلى أقصى اليمين */
+            }
+        }
+
+        button {
+            position: relative;
+            padding: 15px 30px;
+            background: linear-gradient(to right, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
+            border-radius: 150px;
+            border: none;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            margin-left: 130px;
+        }
+
+        .star-1 {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 25px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 0.8s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+        }
+
+        .star-2 {
+            position: absolute;
+            top: 45%;
+            left: 45%;
+            width: 15px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+        }
+
+        .star-3 {
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            width: 5px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+        }
+
+        .star-4 {
+            position: absolute;
+            top: 20%;
+            left: 40%;
+            width: 8px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+        }
+
+        .star-5 {
+            position: absolute;
+            top: 25%;
+            left: 45%;
+            width: 15px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+        }
+
+        .star-6 {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            width: 5px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+        }
+
+        button:hover {
+            background: linear-gradient(to right, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+            color: #ffffff;
+            box-shadow: 0 0 80px #3D2A71;
+        }
+
+        button:hover .star-1 {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 20px;
+            height: auto;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        button:hover .star-2 {
+            position: absolute;
+            top: 35%;
+            left: -25%;
+            width: 15px;
+            height: auto;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        button:hover .star-3 {
+            position: absolute;
+            top: 80%;
+            left: -10%;
+            width: 10px;
+            height: auto;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        button:hover .star-4 {
+            position: absolute;
+            top: -25%;
+            left: 105%;
+            width: 20px;
+            height: auto;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        button:hover .star-5 {
+            position: absolute;
+            top: 30%;
+            left: 115%;
+            width: 15px;
+            height: auto;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        button:hover .star-6 {
+            position: absolute;
+            top: 80%;
+            left: 105%;
+            width: 10px;
+            height: auto;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        .fil0 {
+            fill: #fffdef;
+        }
+
+        /* الهواتف الصغيرة جدًا */
+        @media screen and (max-width: 320px) {
+            button {
+                padding: 5px 17px !important;
+                font-size: 6px !important;
+                border-radius: 5px;
+            }
+        }
+
+        /* الهواتف الذكية القياسية */
+        @media screen and (max-width: 375px) {
+            button {
+                padding: 6px 20px !important;
+                font-size: 8px !important;
+                border-radius: 10px;
+            }
+        }
+
+        /* الهواتف الكبيرة */
+        @media screen and (max-width: 425px) {
+            button {
+                padding: 8px 22px !important;
+                font-size: 10px !important;
+                border-radius: 15px;
+            }
+        }
+
+        /* الأجهزة اللوحية */
+        @media screen and (max-width: 768px) {
+            button {
+                padding: 11px 30px !important;
+                font-size: 7px !important;
+                border-radius: 20px;
+            }
+        }
+
+        .loader {
+            --col1: rgb(60.63, 41.92, 113.04);
+            /* اللون الأول */
+            --col2: rgb(115.35, 79.74, 215.04);
+            /* اللون الثاني */
+            font-size: 30px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            line-height: 1.8;
+        }
+
+        .words {
+            font-size: 55px;
+            font-weight: bold;
+            color: transparent;
+            background-image: linear-gradient(90deg, var(--col1) 0%, var(--col2) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            white-space: nowrap;
+            overflow: hidden;
+            /* إخفاء النص إذا تجاوز الحدود */
+            display: inline-block;
+            width: fit-content;
+            /* تحديد العرض بناءً على المحتوى */
+            line-height: 1.8;
+        }
+
+        .text {
+            display: inline-block;
+            /* التأكد من أن النص لا يتجاوز الحدود */
+        }
+
+        p {
+            margin-top: 25px;
+            /* ضمان وجود مسافة كافية أسفل النص المتغير */
+        }
+
+        /* استعلام الوسائط للجوال */
+        @media (max-width: 768px) {
+            .loader {
+                font-size: 20px;
+                /* تقليل حجم الخط في الجوال */
+            }
+
+            .words {
+                font-size: 28px;
+                /* تقليل حجم الخط الخاص بالنص المتغير */
+            }
+
+            h2 {
+                font-size: 22px !important;
+            }
+
+            .cont p {
+                font-size: 16px;
+                /* تقليل حجم الخط للنص داخل العنصر <p> */
+                margin-top: 12px;
+            }
+        }
+
+        @media (max-width: 425px) {
+            .loader {
+                font-size: 20px;
+                /* تقليل حجم الخط في الجوال */
+                align-items: center;
+            }
+
+            .words {
+                font-size: 25px;
+                /* تقليل حجم الخط الخاص بالنص المتغير */
+                align-items: center;
+            }
+
+            h2 {
+                font-size: 18px !important;
+                align-items: center;
+            }
+
+            .cont p {
+                font-size: 12px;
+                /* تقليل حجم الخط للنص داخل العنصر <p> */
+                margin-top: 42px;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .loader {
+                font-size: 20px;
+                /* تقليل حجم الخط في الجوال */
+            }
+
+            .words {
+                font-size: 20px;
+                /* تقليل حجم الخط الخاص بالنص المتغير */
+            }
+
+            h2 {
+                font-size: 16px !important;
+            }
+
+            .cont p {
+                font-size: 12px;
+                /* تقليل حجم الخط للنص داخل العنصر <p> */
+                margin-top: 33px;
+            }
+        }
+
+        .Works {
+            padding: 15px;
+            /* تقليل الحشو */
+        }
+
+        fieldset {
+            border: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+            padding: 10px;
+            /* تقليل الحشو داخل الحقل */
+            border-radius: 30px;
+            /* تصغير زوايا الحقل */
+            max-width: 400px;
+            /* تقليل العرض */
+            margin: auto;
+            box-sizing: border-box;
+        }
+
+        .button-group {
+            margin: 0 3px;
+            /* تقليل التباعد بين الأزرار */
+        }
+
+        .button-group input[type="radio"] {
+            display: none;
+            /* إخفاء زر الراديو */
+        }
+
+        .button-group label {
+            display: inline-block;
+            padding: 20px 45px;
+            /* تقليل حجم الأزرار */
+            cursor: pointer;
+            border: 1px solid #4B3F6E;
+            background-color: #FFFFFF;
+            color: #4B3F6E;
+            border-radius: 30px;
+            /* تصغير زوايا الأزرار */
+            transition: all ease 0.2s;
+            text-align: center;
+            font-size: 16px;
+            /* تصغير حجم الخط */
+            margin: 3px;
+            box-sizing: border-box;
+        }
+
+        .button-group input[type="radio"]:checked+label {
+            background-color: rgb(244, 240, 255);
+            color: #3D2A71;
+            border: 2px solid rgb(244, 240, 255);
+            box-shadow: 0px 0px 20px -10px #000000;
+            /* تصغير الظل */
+            font-weight: bold;
+        }
+
+        /* إعدادات للأجهزة الصغيرة */
+        @media screen and (max-width: 768px) {
+            .Works {
+                padding: 40px;
+                /* تقليل الحشو */
+            }
+
+            fieldset {
+                padding: 8px;
+                /* تقليل الحشو داخل الحقل */
+                max-width: 90%;
+                /* تكيف العرض مع الشاشة */
+                border-radius: 20px;
+            }
+
+            .button-group {
+                margin: 1px;
+                /* تقليل التباعد بين الأزرار */
+                justify-content: center;
+            }
+
+            .button-group label {
+                padding: 8px 15px;
+                /* تقليل حجم الأزرار */
+                font-size: 14px;
+                /* تقليل حجم الخط */
+            }
+
+            .cardWork__title {
+                font-size: 20px !important;
+            }
+
+            .cardWork__description {
+                font-size: 13px !important;
+            }
+        }
+
+        @media screen and (max-width: 425px) {
+            .Works {
+                padding: 40px;
+                /* تقليل الحشو */
+            }
+
+            fieldset {
+                padding: 8px;
+                /* تقليل الحشو داخل الحقل */
+                max-width: 90%;
+                /* تكيف العرض مع الشاشة */
+                border-radius: 20px;
+            }
+
+            .button-group {
+                margin: 1px;
+                /* تقليل التباعد بين الأزرار */
+                justify-content: center;
+            }
+
+            .button-group label {
+                padding: 8px 15px;
+                /* تقليل حجم الأزرار */
+                font-size: 14px;
+                /* تقليل حجم الخط */
+            }
+
+            .cardWork__title {
+                font-size: 17px !important;
+            }
+
+            .cardWork__description {
+                font-size: 10px !important;
+            }
+        }
+
+        @media screen and (max-width: 375px) {
+            .Works {
+                padding: 40px;
+                /* تقليل الحشو */
+            }
+
+            fieldset {
+                padding: 8px;
+                /* تقليل الحشو داخل الحقل */
+                max-width: 90%;
+                /* تكيف العرض مع الشاشة */
+                border-radius: 20px;
+            }
+
+            .button-group {
+                margin: 1px;
+                /* تقليل التباعد بين الأزرار */
+                justify-content: center;
+            }
+
+            .button-group label {
+                padding: 8px 15px;
+                /* تقليل حجم الأزرار */
+                font-size: 14px;
+                /* تقليل حجم الخط */
+            }
+
+            .cardWork__title {
+                font-size: 15px !important;
+            }
+
+            .cardWork__description {
+                font-size: 7px !important;
+            }
+        }
+
+        /* المسافة بين الزر والقائمة */
+        @media (max-width: 1024px) {
+            nav {
+                gap: 25px;
+                /* إضافة مسافة بين الزر والقائمة */
+                flex-direction: row;
+                /* جعل الزر والقائمة بجانب بعضهما */
+            }
+
+            .nav-list {
+                gap: 15px;
+                /* مسافة بين عناصر القائمة */
+            }
+
+            .menu-toggle {
+                display: flex;
+                /* إظهار زر القائمة في الجوال */
+                margin-left: auto;
+                /* دفعه إلى أقصى اليمين */
+            }
+        }
+
+        .Services {
+            background-color: #F4F4F4;
+            padding: 50px;
+            margin-top: 100px;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            --col1: rgb(61, 42, 113);
+            /* اللون الأول */
+            --col2: rgb(115, 80, 215);
+            /* اللون الثاني */
+            color: transparent;
+            /* النص شفاف */
+            background-image: linear-gradient(90deg, var(--col1) 0%, var(--col2) 100%);
+            /* تدرج لوني من اليسار إلى اليمين */
+            background-clip: text;
+            -webkit-background-clip: text;
+            font-weight: bold;
+            text-align: center;
+            font-size: 60px;
+        }
+
+        .Services p {
+            text-align: center;
+            font-size: 25px;
+            color: #3D2A71;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+                /* تقليل حجم الخط الخاص بالنص المتغير */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 25px;
+                /* تقليل حجم الخط الخاص بالنص المتغير */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 22px;
+                /* تقليل حجم الخط الخاص بالنص المتغير */
+            }
+        }
+
+        .Skills {
+            background-color: #F4F4F4;
+            padding: 40px;
+        }
+
+        .cardSkill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 0;
+            padding-bottom: 80px;
+        }
+
+        .cardSkill {
+            width: 160px;
+            /* العرض مربع صغير */
+            height: 160px;
+            /* الطول مطابق للعرض */
+            border-radius: 15px;
+            background: rgb(244, 240, 255);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* محاذاة المحتوى في المنتصف */
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 4px 8px #9c8cb9;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            padding: 10px;
+            /* مساحة داخلية لترك حواف */
+        }
+
+        .cardSkill:hover {
+            transform: translateY(-5px);
+            /* حركة للأعلى عند التمرير */
+            box-shadow: 0 6px 12px rgba(156, 140, 185, 0.6);
+            /* تأثير الظل */
+            background: linear-gradient(to right, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+            /* تغيير لون الخلفية */
+        }
+
+        .cardSkill-image {
+            width: 80px;
+            /* تصغير عرض الصورة داخل البطاقة */
+            height: 80px;
+            /* جعل الصورة مربعة */
+            border-radius: 10px;
+            /* حواف مستديرة للصورة */
+            margin: 10px 0;
+            /* ترك مسافة بين الصورة والمحتوى الآخر */
+            object-fit: contain;
+            /* لضمان عرض الصورة بالكامل */
+            transition: filter 0.3s ease-in-out;
+            filter: brightness(0.7);
+            /* تقليل السطوع */
+            padding-top: 20px;
+        }
+
+        .cardSkill:hover .cardSkill-image {
+            filter: brightness(1.3) drop-shadow(0 1px 10px rgb(60.63, 41.92, 113.04));
+            /* زيادة الإضاءة وإضافة تأثير البريق */
+        }
+
+        .new-text {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 5px;
+            /* مساحة داخلية للنص */
+            margin-top: 5px;
+            /* مسافة بين النص والصورة */
+            z-index: 1;
+        }
+
+        .new-text p {
+            font-size: 25px;
+            color: #3D2A71;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .cardSkill:hover .new-text p {
+            color: #FFFFFF;
+            /* تغيير لون النص عند التمرير */
+        }
+
+
+        /* Flex container for the cards */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            /* Make the cards wrap to the next row if needed */
+            justify-content: center;
+            /* Center the cards */
+            gap: 20px;
+            /* Space between cards */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cardWork {
+            flex: 1 1 calc(25% - 30px);
+            /* أربعة بطاقات في الصف مع تقليل المسافة */
+            max-width: 350px;
+            /* تقليل العرض الأقصى */
+            min-width: 250px;
+            /* تقليل العرض الأدنى */
+            margin: 15px;
+            /* تقليل الهامش */
+            margin-top: 30px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            position: relative;
+            background-color: #ffffff;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            perspective: 1000px;
+            box-shadow: 0 0 0 3px #4b3f6e;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* For smaller devices */
+        @media (max-width: 768px) {
+            .cardWork {
+                flex: 1 1 calc(50% - 20px);
+                /* Two cards per row */
+            }
+
+            .cardWork__description {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cardWork {
+                flex: 1 1 100%;
+                /* One card per row */
+                font-size: 10px;
+            }
+        }
+
+        /* For smaller devices */
+        @media (max-width: 425px) {
+            .cardWork {
+                flex: 1 1 calc(50% - 20px);
+                /* Two cards per row */
+            }
+
+            .cardWork__description {
+                font-size: 7px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cardWork {
+                flex: 1 1 100%;
+                /* One card per row */
+                font-size: 8px;
+            }
+        }
+
+        /* For smaller devices */
+        @media (max-width: 375px) {
+            .cardWork {
+                flex: 1 1 calc(50% - 20px);
+                /* Two cards per row */
+            }
+
+            .cardWork__description {
+                font-size: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cardWork {
+                flex: 1 1 100%;
+                /* One card per row */
+                font-size: 8px;
+            }
+        }
+
+        .card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .cardWork:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        .cardWork__content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(to right, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+            ;
+            transform: rotateX(-90deg);
+            transform-origin: bottom;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cardWork:hover .cardWork__content {
+            transform: rotateX(0deg);
+            border-radius: 15px;
+        }
+
+        .cardWork__title {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .cardWork__description {
+            margin: 10px 0 20px;
+            font-size: 14px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 17px;
+        }
+
+        .cardWork__button {
+            padding: 7px;
+            border-radius: 8px;
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgb(244, 240, 255);
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .cardWork__button:hover {
+            color: #3D2A71;
+            background: rgb(244, 240, 255);
+            box-shadow: 0 2px 8px #2d2644;
+        }
+
+        .cardWork__button {
+            text-decoration: none;
+            /* إزالة الخط تحت النص */
+        }
+
+        .secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgb(244, 240, 255);
+        }
+
+        .secondary:hover {
+            background: rgb(244, 240, 255);
+            color: #3D2A71;
+        }
+
+        .section {
+            display: none;
+            height: auto;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .footer {
+            width: 100%;
+            background-color: #3D2A71;
+            color: white;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 30px;
+            padding-bottom: 20px;
+        }
+
+        .card-social {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .socialContainer {
+            width: 52px;
+            height: 52px;
+            background-color: #3D2A71;
+            border: 2px solid #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .containerTwo:hover {
+            background: linear-gradient(to right, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+            transform: scale(1.2);
+        }
+
+        .containerTwo:hover {
+            background: linear-gradient(to right, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+            transform: scale(1.2);
+        }
+
+        .socialSvg {
+            width: 17px;
+        }
+
+        .socialSvgg {
+            width: 22px;
+        }
+
+        .socialSvg path {
+            fill: #ffffff;
+        }
+
+
+        .socialSvgg path {
+            fill: #ffffff;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid #f1f1f1;
+            transition: box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgb(60.63, 41.92, 113.04), rgb(115.35, 79.74, 215.04));
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            color: #3D2A71;
+            margin-bottom: 10px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+            /* تأثير انتقال سلس */
+        }
+
+        .service-description {
+            font-size: 1rem;
+            color: #9C8CB9 !important;
+            transition: color 0.2s ease;
+            /* تأثير انتقال سلس */
+        }
+
+        .service-card:hover .service-title {
+            color: #fff;
+            /* تغيير لون العنوان عند الهوفر */
+        }
+
+        .service-card:hover .service-description {
+            color: #F0E5FF !important;
+            /* تغيير لون النصوص عند الهوفر */
+        }
+
+        @media screen and (max-width: 768px) {
+            .service-title {
+                font-size: 25px;
+                /* مثال على تقليل حجم العنوان */
+            }
+
+            .service-description {
+                font-size: 19px !important;
+                /* تقليل حجم الوصف بشكل أكبر */
+                font-weight: normal !important;
+                /* التأكد من جعل النص عادي وليس بولد */
+            }
+        }
+
+        @media screen and (max-width: 375px) {
+            .service-title {
+                font-size: 18px;
+                /* مثال على تقليل حجم العنوان */
+            }
+
+            .service-description {
+                font-size: 15px !important;
+                /* تقليل حجم الوصف بشكل أكبر */
+                font-weight: normal !important;
+                /* التأكد من جعل النص عادي وليس بولد */
+            }
+        }
+
+        @media screen and (max-width: 425px) {
+            .service-title {
+                font-size: 16px;
+                /* مثال على تقليل حجم العنوان */
+            }
+
+            .service-description {
+                font-size: 14px !important;
+                /* تقليل حجم الوصف بشكل أكبر */
+                font-weight: normal !important;
+                /* التأكد من جعل النص عادي وليس بولد */
+            }
+        }
+    </style>
+
+</head>
+<header>
+    <nav>
+        <div class="logo">
+
+            <a href="#top"><img src="image/logo2.png" alt="Logo" loading="lazy"></a>
+        </div>
+        <ul class="nav-list">
+            <li><a href="#Services"><strong>Services</strong></a></li>
+            <li><a href="#Works"><strong>Works</strong></a></li>
+            <li><a href="#Skills"><strong>Skills</strong></a></li>
+        </ul>
+
+        <button onclick="location.href='#card-social';">
+            Hire Me!
+            <div class="star-1">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+                    style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+                    version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <defs></defs>
+                    <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            class="fil0"></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="star-2">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+                    style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+                    version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <defs></defs>
+                    <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            class="fil0"></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="star-3">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+                    style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+                    version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <defs></defs>
+                    <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            class="fil0"></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="star-4">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+                    style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+                    version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <defs></defs>
+                    <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            class="fil0"></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="star-5">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+                    style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+                    version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <defs></defs>
+                    <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            class="fil0"></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="star-6">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+                    style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+                    version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <defs></defs>
+                    <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                            class="fil0"></path>
+                    </g>
+                </svg>
+            </div>
+        </button>
+
+        <!-- زر القائمة الخاص بالجوال -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        </div>
+    </nav>
+</header>
+
+<body>
+    <div class="cont" id="content">
+        <div class="card">
+            <div class="loader">
+                <h2>Hello, I’m Mariyyah, </h2>
+                <div class="words">
+                    <span class="text" id="text"></span>
+                </div>
+                <p>I delve into the intricacies of user<br> experience,
+                    transforming complexities <br> into designs that inspire
+                    and enhance <br> the lives of millions worldwide.</p>
+            </div>
+        </div>
+
+        <img src="image/Maloki.png" class="image-right">
+
+    </div>
+
+    <div class="Services" id="Services">
+        <h1>My Quality Services</h1>
+
+        <div class="service-card">
+            <h3 class="service-title">UI/UX Design</h2>
+                <p class="service-description"> Goes beyond aesthetics; it’s about understanding the user’s needs,
+                    behaviors, and emotions to craft interfaces that are both practical and inspiring.</p>
+        </div>
+
+        <div class="service-card">
+            <h3 class="service-title">User Research</h3>
+            <p class="service-description">Is the foundation of great design, providing deep insights into user needs,
+                behaviors, and pain points, ensuring solutions are both meaningful and effective..</p>
+        </div>
+
+        <div class="service-card">
+            <h3 class="service-title">Web Development</h3>
+            <p class="service-description"> Is the art of turning ideas into interactive and impactful websites,
+                combining stunning design with powerful performance.</p>
+        </div>
+
+    </div>
+
+    <div class="Works" id="Works">
+        <h1>My Recent Works</h1>
+
+        <fieldset>
+            <div class="button-group">
+                <input type="radio" id="svelt" name="frameworks" checked />
+                <label for="svelt">App</label>
+            </div>
+            <div class="button-group">
+                <input type="radio" id="react" name="frameworks" />
+                <label for="react">Web</label>
+            </div>
+            <div class="button-group">
+                <input type="radio" id="vu" name="frameworks" />
+                <label for="vu">Branding</label>
+            </div>
+            <div class="button-group">
+                <input type="radio" id="vue" name="frameworks" />
+                <label for="vue">Other</label>
+            </div>
+        </fieldset>
+
+        <!-- الأقسام المختلفة -->
+        <section id="app-section" class="section active">
+            <div class="card-container">
+
+                <div class="cardWork">
+                    <img src="work/Rehl.png" alt="Project Image" class="card__image" loading="lazy" />
+                    <div class="cardWork__content">
+                        <p class="cardWork__title">Rehla | رحلة</p>
+                        <p class="cardWork__description">
+                            As part of the Persuasion Techniques course, our team created the Rehla app to transform
+                            travel planning with personalized options for entertainment, dining, and activities. <br>
+                            Integrated with over 20 persuasive techniques, Rehla guides users to make confident
+                            decisions and enjoy an engaging experience with exclusive promotions and rewards.
+                        </p>
+                        <a href="https://www.figma.com/proto/IOKvevXXwjiMqCYqYb1lji/%D8%A3%D8%B3%D8%A7%D9%84%D9%8A%D8%A8-%D8%A7%D9%84%D8%A7%D9%82%D9%86%D8%A7%D8%B9?page-id=0%3A1&node-id=268-730&node-type=frame&viewport=1550%2C-1628%2C0.11&t=pUkmA3XKhBI6aE7z-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=402%3A448"
+                            class="cardWork__button">Figma</a>
+                        <a href="Rehla Project.pdf" class="cardWork__button secondary">PDF</a>
+                    </div>
+                </div>
+
+                <div class="cardWork">
+                    <img src="work/HM.png" alt="Project Image" class="card__image" loading="lazy" />
+                    <div class="cardWork__content">
+                        <p class="cardWork__title">The Housemaid</p>
+                        <p class="cardWork__description">
+                            The Housemaid Application helps users find and hire qualified domestic workers for household
+                            tasks and personal care. Developed as part of a Software Engineering Fundamentals course,
+                            this project involved creating a Software Requirements Specification (SRS) for an app that
+                            enables users to search, book, pay, and communicate with service providers.
+                        </p>
+                        <a href="image/HM1.png" class="cardWork__button" id="viewImageBtn">View Image</a>
+                    </div>
+                </div>
+
+                <div class="cardWork">
+                    <img src="work/Jrir.png" alt="Project Image" class="card__image" loading="lazy" />
+                    <div class="cardWork__content">
+                        <p class="cardWork__title">Jarir Redesign</p>
+                        <p class="cardWork__description">
+                            This project was part of the User Interface Design and Information Architecture courses,
+                            focusing on enhancing the Jarir app's user experience. The goal was to redesign the
+                            interface and organize information to simplify navigation, improve usability, and help users
+                            access information more efficiently.
+                        </p>
+                        <a href="https://www.figma.com/proto/FOzHruxl55AeUU5rlm5sF0/Jarir?page-id=1669%3A162202&node-id=931-1590&starting-point-node-id=931%3A1590&t=fWkSe74TI83POrOh-1"
+                            class="cardWork__button">Figma</a>
+                    </div>
+                </div>
+
+                <div class="cardWork">
+                    <img src="work/Watt.png" alt="Project Image" class="card__image" loading="lazy" />
+                    <div class="cardWork__content">
+                        <p class="cardWork__title">Watt | واط</p>
+                        <p class="cardWork__description">
+                            As part of the Prototyping Methods course, we developed an energy-tracking application to
+                            help residential users optimize electricity usage. The app features real-time data
+                            visualization, personalized advice, and interactive graphs for energy monitoring. It was
+                            designed using user-centered prototyping techniques to ensure smooth navigation and ease of
+                            use.
+                            "Wait for the day when WAT becomes a reality."
+                        </p>
+                        <a href="https://x.com/BMaraMB/status/1854887314364707196" class="cardWork__button"
+                            id="viewImageBtn">Read Praise</a>
+                    </div>
+                </div>
+
+                <div class="cardWork">
+                    <img src="work/Match.png" alt="Project Image" class="card__image" loading="lazy" />
+                </div>
+
+                <div class="cardWork">
+                    <img src="work/Me.png" alt="Project Image" class="card__image" loading="lazy" />
+                </div>
+
+
+            </div>
+        </section>
+
+        <section id="web-section" class="section">
+
+            <div class="card-container">
+                <div class="cardWork">
+                    <img src="work/Web1.png" alt="Project Image" class="card__image" loading="lazy" />
+                    <div class="cardWork__content">
+                        <p class="cardWork__title">Sustainable Environmental Awareness</p>
+                        <p class="cardWork__description">
+                            As part of the Inclusive Design and Design Systems courses, we developed a website to
+                            promote environmental awareness and sustainable practices in Saudi Arabia. The platform
+                            features educational content, interactive tools, and integrates assistive technology to
+                            ensure accessibility for all users.
+                        </p>
+                        <a href="image/web11.png" class="cardWork__button" id="viewImageBtn">View Image</a>
+                    </div>
+                </div>
+
+                <div class="cardWork">
+                    <img src="work/web2.png" alt="Project Image" class="card__image" loading="lazy" />
+                    <div class="cardWork__content">
+                        <p class="cardWork__title">UQU Campus Services</p>
+                        <p class="cardWork__description">
+                            This project was developed as part of the Web Development Fundamentals course to help
+                            students, especially newcomers, navigate and explore university facilities. The website
+                            provides information on campus restaurants, shops, and services, while also offering
+                            features for users to share opinions, report issues, and apply for jobs.
+                        </p>
+                        <a href="image/web22.png" class="cardWork__button" id="viewImageBtn">View Image</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="Branding-section" class="section">
+            <div class="card-container">
+                <div class="cardWork">
+                    <img src="image/ha.png" alt="Project Image" class="card__image" loading="lazy" />
+                    <div class="cardWork__content">
+                        <p class="cardWork__description">
+                            We have redefined Kaptar's visual identity to be a true reflection of its values and
+                            aspirations.A design that blends authenticity with creativity, where every detail tells a
+                            unique story.
+                            Discover more about this distinctive work.
+                        </p>
+                        <a href="هويه كبتار.pdf" class="cardWork__button secondary">PDF</a>
+                    </div>
+                </div>
+
+                <div class="cardWork">
+                    <img src="image/kk.png" alt="Project Image" class="card__image" loading="lazy" />
+                    <div class="cardWork__content">
+                        <p class="cardWork__description">
+                            We designed Kaptar's brochure to genuinely and uniquely reflect its values and vision.
+                            A design that tells a unique story on every page.
+                            Discover how this brochure embodies Kaptar's spirit in an exceptional and creative way.
+                        </p>
+                        <a href="كُتيّب كِبتـار لعام 2025-1446.pdf" class="cardWork__button secondary">PDF</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+
+    <section id="other-section" class="section">
+        <div class="card-container">
+
+            <div class="cardWork">
+                <img src="work/nbz.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/doa.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/daa.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/t.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/l.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/gameing.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/Muc.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/Mockup.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/a3.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/a.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+
+            <div class="cardWork">
+                <img src="work/aw.png" alt="Project Image" class="card__image" loading="lazy" />
+            </div>
+    </section>
+    </div>
+
+    <div class="Skills" id="Skills">
+        <h1> My Skills</h1>
+
+        <div class="cardSkill-container">
+            <!-- البطاقة الأولى -->
+            <div class="cardSkill">
+                <img class="cardSkill-image" src="skill/figma-logo.png" alt="Figma">
+                <div class="new-text">
+                    <p>95%</p>
+                </div>
+            </div>
+            <!-- البطاقة الثانية -->
+            <div class="cardSkill">
+                <img class="cardSkill-image" src="skill/logo-html-5-768.png" alt="HTML">
+                <div class="new-text">
+                    <p>90%</p>
+                </div>
+            </div>
+            <!-- البطاقة الثالثة -->
+            <div class="cardSkill">
+                <img class="cardSkill-image" src="skill/CSS1.png" alt="CSS">
+                <div class="new-text">
+                    <p>89%</p>
+                </div>
+            </div>
+            <!-- البطاقة الرابعة -->
+            <div class="cardSkill">
+                <img class="cardSkill-image" src="skill/JS.png" alt="JavaScript">
+                <div class="new-text">
+                    <p>80%</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer">
+        <div class="card-social" id="card-social">
+            <!-- محتوى الأيقونات الاجتماعية -->
+            <a class="socialContainer containerTwo" href="https://www.linkedin.com/in/maria-aljahdali">
+
+                <svg viewBox="0 0 448 512" class="socialSvg linkdinSvg">
+                    <path
+                        d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
+                    </path>
+                </svg>
+            </a>
+
+            <a class="socialContainer containerTwo" href="mailto:Maria3zizsj@gmail.com">
+                <svg xmlns="http://www.w3.org/2000/svg" class="socialSvgg linkdinSvg" viewBox="0 0 48 48">
+                    <path
+                        d="M 10 8 C 6.86 8 4.2795313 10.42 4.0195312 13.5 L 24 24.289062 L 43.980469 13.5 C 43.720469 10.42 41.14 8 38 8 L 10 8 z M 4 16.890625 L 4 34 C 4 37.31 6.69 40 10 40 L 38 40 C 41.31 40 44 37.31 44 34 L 44 16.890625 L 24.710938 27.320312 C 24.490938 27.440312 24.25 27.5 24 27.5 C 23.75 27.5 23.509062 27.440313 23.289062 27.320312 L 4 16.890625 z">
+                    </path>
+                </svg>
+            </a>
+
+        </div>
+        <p>© 2024 - 2025 All Rights Reserved</p>
+    </footer>
+
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.querySelector('.nav-list');
+
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open'); // Toggle 'open' class for the menu button
+            navList.classList.toggle('active'); // Toggle 'active' class for the nav list
+        });
+
+        const words = ["A UI Designer", "A UX Designer", "A User Researcher", "A Web Developer"];
+        const textElement = document.getElementById("text");
+        let wordIndex = 0; // فهرس الكلمة الحالية
+        let charIndex = 0; // فهرس الحرف الحالي
+        let isDeleting = false; // حالة الكتابة أو الحذف
+
+        function type() {
+            if (wordIndex < words.length) {
+                if (!isDeleting) {
+                    // كتابة الأحرف
+                    if (charIndex < words[wordIndex].length) {
+                        textElement.textContent += words[wordIndex].charAt(charIndex);
+                        charIndex++;
+                        setTimeout(type, 200); // سرعة الكتابة
+                    } else {
+                        // الانتظار بعد كتابة الكلمة بالكامل
+                        isDeleting = true;
+                        setTimeout(type, 3000); // الانتظار 3 ثوانٍ
+                    }
+                } else {
+                    // حذف الأحرف
+                    if (charIndex > 0) {
+                        textElement.textContent = words[wordIndex].substring(0, charIndex - 1);
+                        charIndex--;
+                        setTimeout(type, 100); // سرعة الحذف
+                    } else {
+                        // الانتقال إلى الكلمة التالية
+                        isDeleting = false;
+                        wordIndex++;
+                        setTimeout(type, 500); // الانتظار قبل كتابة الكلمة التالية
+                    }
+                }
+            } else {
+                // إعادة تعيين إلى الكلمة الأولى
+                wordIndex = 0;
+                setTimeout(type, 2000); // الانتظار قبل إعادة البدء
+            }
+        }
+
+        type(); // بدء تأثير الكتابة
+
+        document.querySelectorAll('input[name="frameworks"]').forEach((radio) => {
+            radio.addEventListener("change", (event) => {
+                const sections = {
+                    svelt: "app-section",
+                    react: "web-section",
+                    vu: "Branding-section",
+                    vue: "other-section",
+                };
+
+                // إخفاء جميع الأقسام
+                document.querySelectorAll(".section").forEach((section) => {
+                    section.classList.remove("active");
+                });
+
+                // إظهار القسم المحدد
+                const targetId = sections[event.target.id];
+                document.getElementById(targetId).classList.add("active");
+            });
+        });
+
+        // إظهار القسم الافتراضي عند التحميل
+        document.getElementById("app-section").classList.add("active");
+
+    </script>
+</body>
+
+</html>
